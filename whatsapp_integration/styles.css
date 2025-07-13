@@ -1,0 +1,186 @@
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.card-header h3 {
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-header h3 i {
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+}
+
+/* Form Styles */
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-control:focus {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #25D366;
+    box-shadow: 0 0 0 0.25rem rgba(37, 211, 102, 0.25);
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-right: none;
+    border-radius: 0.5rem 0 0 0.5rem;
+    color: #6c757d;
+}
+
+/* Button Styles */
+.btn-success {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-success:focus {
+    background: linear-gradient(135deg, #128C7E 0%, #0b5e53 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(18, 140, 126, 0.3);
+}
+
+.btn-success:active {
+    transform: translateY(0);
+}
+
+/* Alert Styles */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.alert-dismissible .btn-close {
+    padding: 1rem;
+}
+
+/* Footer Styles */
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 1rem 1.5rem;
+}
+
+/* Help Modal */
+.modal-header {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-header .btn-close {
+    filter: invert(1) brightness(2);
+    opacity: 0.8;
+}
+
+.modal-title {
+    display: flex;
+    align-items: center;
+}
+
+.modal-title i {
+    margin-right: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin: 0 1rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #e9ecef;
+    }
+    
+    .card {
+        background-color: #2d2d2d;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    }
+    
+    .form-control, .form-control:focus {
+        background-color: #3d3d3d;
+        border-color: #4d4d4d;
+        color: #fff;
+    }
+    
+    .input-group-text {
+        background-color: #3d3d3d;
+        border-color: #4d4d4d;
+        color: #adb5bd;
+    }
+    
+    .form-text {
+        color: #adb5bd !important;
+    }
+    
+    .card-footer {
+        background-color: #2d2d2d;
+        border-top-color: #3d3d3d;
+    }
+    
+    .alert {
+        background-color: #2d2d2d;
+        color: #e9ecef;
+    }
+    
+    .text-muted {
+        color: #adb5bd !important;
+    }
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Planner</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-route me-2"></i>Route Planner
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link" id="newRouteBtn">
+                                <i class="fas fa-plus-circle me-1"></i> New Route
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link" id="saveRouteBtn">
+                                <i class="fas fa-save me-1"></i> Save Route
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search location...">
+                            <button class="btn btn-light" type="button" id="searchButton">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4 sidebar">
+                <div class="p-3">
+                    <!-- Route Info -->
+                    <div class="mb-4">
+                        <h5><i class="fas fa-info-circle me-2"></i>Route Information</h5>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Total Distance:</span>
+                                    <strong id="totalDistance">-</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Total Duration:</span>
+                                    <strong id="totalDuration">-</strong>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Stops:</span>
+                                    <strong id="totalStops">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stops List -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Stops</h5>
+                            <button class="btn btn-sm btn-outline-primary" id="addStopBtn">
+                                <i class="fas fa-plus"></i> Add Stop
+                            </button>
+                        </div>
+                        <div id="stopsList" class="list-group mb-3">
+                            <!-- Stops will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Route Options -->
+                    <div class="mb-4">
+                        <h5><i class="fas fa-sliders-h me-2"></i>Route Options</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Travel Mode</label>
+                                    <select class="form-select" id="travelMode">
+                                        <option value="DRIVING">Driving</option>
+                                        <option value="WALKING">Walking</option>
+                                        <option value="BICYCLING">Bicycling</option>
+                                        <option value="TRANSIT">Transit</option>
+                                    </select>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="avoidHighways">
+                                    <label class="form-check-label" for="avoidHighways">Avoid Highways</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="avoidTolls">
+                                    <label class="form-check-label" for="avoidTolls">Avoid Tolls</label>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-2" id="calculateRouteBtn">
+                                    <i class="fas fa-route me-2"></i>Calculate Route
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Saved Routes -->
+                    <div>
+                        <h5><i class="fas fa-bookmark me-2"></i>Saved Routes</h5>
+                        <div id="savedRoutes" class="list-group">
+                            <!-- Saved routes will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="col-lg-9 col-md-8">
+                <div id="map"></div>
+                <div id="elevationChart" class="elevation-chart"></div>
+                <div id="directionsPanel" class="p-3 d-none">
+                    <h5><i class="fas fa-list-ol me-2"></i>Turn-by-Turn Directions</h5>
+                    <div id="directions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Stop Modal -->
+    <div class="modal fade" id="addStopModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Stop</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Stop Name</label>
+                        <input type="text" class="form-control" id="stopName" placeholder="E.g., Home, Work, etc.">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address or Coordinates</label>
+                        <input type="text" class="form-control" id="stopAddress" placeholder="Enter address or lat,lng">
+                    </div>
+                    <div class="form-text">
+                        <i class="fas fa-info-circle"></i> You can drag the marker on the map to adjust the exact location.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmAddStop">Add Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Route Modal -->
+    <div class="modal fade" id="saveRouteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save Route</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Route Name</label>
+                        <input type="text" class="form-control" id="routeName" placeholder="E.g., Work Commute, Weekend Trip">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="setAsDefault">
+                        <label class="form-check-label" for="setAsDefault">
+                            Set as default route
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmSaveRoute">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Charts for Elevation -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places,geometry,visualization&callback=initMap" async defer></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

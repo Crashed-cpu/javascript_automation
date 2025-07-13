@@ -1,0 +1,217 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Map Container */
+#map {
+    height: calc(100vh - 56px);
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #f8f9fa;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    border-right: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+/* Search Bar */
+.search-container {
+    position: relative;
+}
+
+.search-container .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+/* Store Cards */
+.store-card {
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.store-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.store-card .card-img-top {
+    height: 120px;
+    object-fit: cover;
+}
+
+.store-card .card-body {
+    padding: 1rem;
+}
+
+.store-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.store-card .card-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+/* Rating Badge */
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.rating-badge .stars {
+    color: #ffc107;
+    margin-right: 4px;
+}
+
+/* Store Details Modal */
+#storeDetailsModal .modal-dialog {
+    max-width: 500px;
+}
+
+#storeDetailsModal .carousel-item img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+#storeDetailsModal .modal-body {
+    padding: 1.5rem;
+}
+
+/* Map Controls */
+.map-controls {
+    position: absolute;
+    top: 80px;
+    right: 15px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.map-controls .btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .sidebar {
+        height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    #map {
+        height: 60vh;
+    }
+}
+
+/* Loading Spinner */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Store Status Badge */
+.store-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+}
+
+.store-status.open {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.store-status.closed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Price Level Indicator */
+.price-level {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* No Results */
+#noResults {
+    display: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    .store-card .card-img-top {
+        height: 100px;
+    }
+    
+    .store-card .card-title {
+        font-size: 0.9rem;
+    }
+    
+    .store-card .card-text {
+        font-size: 0.8rem;
+    }
+}

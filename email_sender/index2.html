@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Email Sender</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .email-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .status {
+            margin-top: 1rem;
+            display: none;
+        }
+        .btn-send {
+            width: 100%;
+            padding: 0.5rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="email-container">
+            <h2 class="text-center mb-4">Send Email</h2>
+            
+            <form id="emailForm">
+                <div class="mb-3">
+                    <label for="toName" class="form-label">Recipient's Name</label>
+                    <input type="text" class="form-control" id="toName" required 
+                           placeholder="Enter recipient's name">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="toEmail" class="form-label">Recipient's Email</label>
+                    <input type="email" class="form-control" id="toEmail" required 
+                           placeholder="Enter recipient's email">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-send" id="sendButton">
+                    <i class="fas fa-paper-plane me-2"></i>Send Email
+                </button>
+                
+                <div class="alert mt-3 mb-0" id="statusAlert" role="alert">
+                    <div class="d-flex align-items-center">
+                        <div class="spinner-border spinner-border-sm me-2" id="spinner" role="status" style="display: none;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span id="statusMessage"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="app2.js"></script>
+</body>
+</html>

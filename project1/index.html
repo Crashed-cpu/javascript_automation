@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Capture App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📸 Photo Capture App</h1>
+        
+        <div class="camera-container">
+            <div class="camera">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas"></canvas>
+                <div id="cameraStatus" class="hidden">Camera is starting...</div>
+            </div>
+            
+            <div class="controls">
+                <button id="startButton" class="btn">🎥 Start Camera</button>
+                <button id="captureButton" class="btn" disabled>📸 Take Photo</button>
+                <button id="downloadButton" class="btn" disabled>💾 Download Photo</button>
+            </div>
+        </div>
+        
+        <div class="output">
+            <h3>✨ Your Captured Photo</h3>
+            <div class="photo-container">
+                <img id="photo" alt="Your captured image will appear here">
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Click 'Start Camera' to begin (grant camera access when prompted)</li>
+                <li>Click 'Take Photo' to capture an image</li>
+                <li>Click 'Download Photo' to save your image</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

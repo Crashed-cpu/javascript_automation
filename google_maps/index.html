@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Integration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-map-marked-alt me-2"></i>Maps Explorer
+                </a>
+                <div class="d-flex
+                ">
+                    <div class="input-group">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search location...">
+                        <button class="btn btn-light" type="button" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4 sidebar">
+                <div class="p-3">
+                    <h5 class="mb-3"><i class="fas fa-location-dot me-2"></i>Saved Locations</h5>
+                    <div id="savedLocations" class="list-group">
+                        <!-- Saved locations will be added here -->
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h6><i class="fas fa-layer-group me-2"></i>Map Type</h6>
+                        <div class="btn-group w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary active" id="roadmapBtn">Road</button>
+                            <button type="button" class="btn btn-outline-primary" id="satelliteBtn">Satellite</button>
+                            <button type="button" class="btn btn-outline-primary" id="terrainBtn">Terrain</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h6><i class="fas fa-route me-2"></i>Directions</h6>
+                        <div class="mb-3">
+                            <label class="form-label">From</label>
+                            <input type="text" class="form-control mb-2" id="fromInput" placeholder="Starting point">
+                            <label class="form-label">To</label>
+                            <input type="text" class="form-control mb-2" id="toInput" placeholder="Destination">
+                            <button class="btn btn-primary w-100" id="getDirectionsBtn">
+                                <i class="fas fa-directions me-2"></i>Get Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="col-lg-9 col-md-8">
+                <div id="map"></div>
+                <div id="directionsPanel" class="p-3 d-none">
+                    <h5><i class="fas fa-route me-2"></i>Directions</h5>
+                    <div id="directions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Location Modal -->
+    <div class="modal fade" id="addLocationModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save Location</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Location Name</label>
+                        <input type="text" class="form-control" id="locationName">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="addMarker">
+                        <label class="form-check-label" for="addMarker">
+                            Add marker at this location
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveLocationBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

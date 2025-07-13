@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Stores Finder</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-store me-2"></i>Nearby Stores
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="d-flex w-100">
+                        <div class="search-container w-100 me-2">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-search text-muted"></i>
+                                </span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search for stores...">
+                                <button class="btn btn-light" type="button" id="searchButton">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="location-controls">
+                            <button class="btn btn-light ms-2" id="useMyLocation" title="Use my location">
+                                <i class="fas fa-location-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-lg-4 col-md-5 col-sm-12 sidebar">
+                <div class="p-3">
+                    <!-- Filters -->
+                    <div class="filters mb-4">
+                        <h5><i class="fas fa-sliders-h me-2"></i>Filters</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select" id="categorySelect">
+                                        <option value="">All Categories</option>
+                                        <option value="restaurant">Restaurants</option>
+                                        <option value="cafe">Cafés</option>
+                                        <option value="supermarket">Supermarkets</option>
+                                        <option value="pharmacy">Pharmacies</option>
+                                        <option value="clothing_store">Clothing Stores</option>
+                                        <option value="electronics_store">Electronics</option>
+                                        <option value="grocery_or_supermarket">Grocery</option>
+                                        <option value="shopping_mall">Shopping Malls</option>
+                                        <option value="convenience_store">Convenience Stores</option>
+                                        <option value="department_store">Department Stores</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">Distance (km)</label>
+                                        <select class="form-select" id="distanceSelect">
+                                            <option value="1">1 km</option>
+                                            <option value="5" selected>5 km</option>
+                                            <option value="10">10 km</option>
+                                            <option value="20">20 km</option>
+                                            <option value="50">50 km</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Minimum Rating</label>
+                                        <select class="form-select" id="ratingSelect">
+                                            <option value="0">Any</option>
+                                            <option value="3">3+ ★</option>
+                                            <option value="4">4+ ★</option>
+                                            <option value="4.5">4.5+ ★</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch mt-3">
+                                    <input class="form-check-input" type="checkbox" id="openNowCheck" checked>
+                                    <label class="form-check-label" for="openNowCheck">Open Now</label>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" id="applyFilters">
+                                    <i class="fas fa-filter me-2"></i>Apply Filters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="results">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0"><i class="fas fa-store me-2"></i>Stores</h5>
+                            <span class="badge bg-primary" id="resultsCount">0 results</span>
+                        </div>
+                        <div id="storesList" class="list-group">
+                            <!-- Stores will be loaded here -->
+                            <div class="text-center p-5 text-muted" id="noResults">
+                                <i class="fas fa-store-slash fa-3x mb-3"></i>
+                                <p>No stores found. Try adjusting your filters or search location.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="col-lg-8 col-md-7 col-sm-12">
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button class="btn btn-light rounded-circle shadow-sm" id="locateMe" title="Find my location">
+                        <i class="fas fa-location-arrow"></i>
+                    </button>
+                    <button class="btn btn-light rounded-circle shadow-sm" id="zoomIn" title="Zoom in">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="btn btn-light rounded-circle shadow-sm" id="zoomOut" title="Zoom out">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Store Details Modal -->
+    <div class="modal fade" id="storeDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="storeName">Store Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="storeCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded" id="storePhotos">
+                            <!-- Store photos will be loaded here -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#storeCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#storeCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    
+                    <div class="store-info">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="rating-badge me-2" id="storeRating">
+                                <!-- Rating stars will be added here -->
+                            </div>
+                            <span class="text-muted" id="reviewCount">(0 reviews)</span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <p class="mb-1" id="storeAddress">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <span>Loading address...</span>
+                            </p>
+                            <p class="mb-1" id="storePhone">
+                                <i class="fas fa-phone text-primary me-2"></i>
+                                <span>Loading phone...</span>
+                            </p>
+                            <p class="mb-1" id="storeWebsite">
+                                <i class="fas fa-globe text-primary me-2"></i>
+                                <a href="#" target="_blank" class="text-decoration-none">Website</a>
+                            </p>
+                            <p class="mb-0" id="storeHours">
+                                <i class="far fa-clock text-primary me-2"></i>
+                                <span>Loading hours...</span>
+                            </p>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" id="getDirections">
+                                <i class="fas fa-directions me-2"></i>Get Directions
+                            </button>
+                            <button class="btn btn-outline-secondary" id="saveToFavorites">
+                                <i class="far fa-star me-2"></i>Save to Favorites
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

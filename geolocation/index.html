@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container py-4">
+        <header class="text-center mb-4">
+            <h1 class="display-4">Geolocation Tracker</h1>
+            <p class="lead">Find your current location on the map</p>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-map-marker-alt me-2"></i>Your Location</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="map"></div>
+                        <div id="locationInfo" class="mt-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span class="ms-2">Getting your location...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Location Details</h5>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#accuracyInfoModal">
+                            <i class="fas fa-question-circle me-1"></i> About Accuracy
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="row g-0" id="locationDetails">
+                            <!-- Coordinates Card -->
+                            <div class="col-md-6 p-3 border-end border-bottom">
+                                <div class="d-flex align-items-center mb-2">
+                                    <h6 class="card-subtitle mb-0 text-muted">
+                                        <i class="fas fa-map-marked-alt me-2"></i>Coordinates
+                                    </h6>
+                                    <button type="button" class="btn btn-link p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Your precise location on Earth">
+                                        <i class="fas fa-info-circle text-muted"></i>
+                                    </button>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-muted small">Latitude:</span>
+                                        <span id="latitude" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-muted small">Longitude:</span>
+                                        <span id="longitude" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted small">Altitude:</span>
+                                        <span id="altitude" class="fw-bold">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Accuracy Card -->
+                            <div class="col-md-6 p-3 border-bottom">
+                                <div class="d-flex align-items-center mb-2">
+                                    <h6 class="card-subtitle mb-0 text-muted">
+                                        <i class="fas fa-bullseye me-2"></i>Accuracy
+                                    </h6>
+                                    <button type="button" class="btn btn-link p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Lower numbers mean better accuracy">
+                                        <i class="fas fa-info-circle text-muted"></i>
+                                    </button>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-muted small">Horizontal:</span>
+                                        <span id="accuracy" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-muted small">Altitude:</span>
+                                        <span id="altitudeAccuracy" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted small">Last Updated:</span>
+                                        <span id="timestamp" class="fw-bold small">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Address Card -->
+                            <div class="col-12 p-0">
+                                <div class="p-3 border-top">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <h6 class="card-subtitle mb-0 text-muted">
+                                            <i class="fas fa-map-marked-alt me-2"></i>Address
+                                        </h6>
+                                        <button type="button" class="btn btn-link p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Approximate address based on your coordinates">
+                                            <i class="fas fa-info-circle text-muted"></i>
+                                        </button>
+                                    </div>
+                                    <div id="address" class="address-container">
+                                        <div class="d-flex justify-content-center py-3">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <span class="ms-3">Looking up your address...</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 d-flex flex-wrap gap-2" id="addressActions" style="display: none;">
+                                        <button class="btn btn-sm btn-outline-primary" id="refreshAddress">
+                                            <i class="fas fa-sync-alt me-1"></i> Refresh
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" id="manualAddress">
+                                            <i class="fas fa-edit me-1"></i> Enter Manually
+                                        </button>
+                                        <a href="#" class="btn btn-sm btn-outline-info" id="viewOnMap" target="_blank">
+                                            <i class="fas fa-external-link-alt me-1"></i> View on Map
+                                        </a>
+                                    </div>
+                                    <div class="mt-3" id="debugInfo" style="display: none;">
+                                        <details>
+                                            <summary class="small text-muted">Technical Details</summary>
+                                            <div class="mt-2 p-2 bg-light rounded small">
+                                                <div class="mb-1"><strong>Service:</strong> <span id="debugService">-</span></div>
+                                                <div class="mb-1"><strong>Confidence:</strong> <span id="debugConfidence">-</span></div>
+                                                <div><strong>Raw Data:</strong> <code id="debugRaw">-</code></div>
+                                            </div>
+                                        </details>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accuracy Info Modal -->
+                <div class="modal fade" id="accuracyInfoModal" tabindex="-1" aria-labelledby="accuracyInfoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="accuracyInfoModalLabel">
+                                    <i class="fas fa-bullseye me-2"></i>Understanding Location Accuracy
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Your device determines your location using various methods, each with different levels of accuracy:</p>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-satellite-dish text-primary me-2"></i>GPS (Most Accurate)</h6>
+                                    <p class="small ms-4 mb-2">Uses satellites to determine your location, typically accurate within 5-10 meters outdoors.</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-wifi text-primary me-2"></i>Wi-Fi</h6>
+                                    <p class="small ms-4 mb-2">Uses nearby Wi-Fi networks to estimate your location, typically accurate within 20-50 meters.</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-tower-cell text-primary me-2"></i>Cellular</h6>
+                                    <p class="small ms-4 mb-2">Uses cell tower triangulation, typically accurate within 100-1000 meters.</p>
+                                </div>
+                                
+                                <div class="alert alert-info small mb-0">
+                                    <i class="fas fa-lightbulb me-2"></i>
+                                    <strong>Tip:</strong> For best results, ensure your device has a clear view of the sky and Wi-Fi is enabled.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-4 text-muted">
+            <p>Geolocation Tracker &copy; 2025 | Uses OpenStreetMap and Nominatim</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    
+    <!-- Custom JS -->
+    <script src="app.working.js"></script>
+</body>
+</html>

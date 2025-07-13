@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sender</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Email Sender</h1>
+            <p class="lead">Send emails directly from your browser using EmailJS</p>
+        </header>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-envelope me-2"></i>Compose Email</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="emailForm">
+                            <div class="mb-3">
+                                <label for="toEmail" class="form-label">To Email</label>
+                                <input type="email" class="form-control" id="toEmail" required 
+                                       placeholder="recipient@example.com">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="fromName" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="fromName" required 
+                                       placeholder="John Doe">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" required 
+                                       placeholder="Email Subject">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" required 
+                                          placeholder="Write your message here..."></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="attachment" class="form-label">Attachment (Optional)</label>
+                                <input class="form-control" type="file" id="attachment">
+                                <div class="form-text">Maximum file size: 5MB</div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="reset" class="btn btn-outline-secondary me-md-2">
+                                    <i class="fas fa-undo me-1"></i> Reset
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="sendButton">
+                                    <i class="fas fa-paper-plane me-1"></i> Send Email
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div id="statusAlert" class="alert d-none mt-3">
+                    <i class="fas fa-spinner fa-spin me-2"></i>
+                    <span id="statusMessage">Sending email...</span>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle me-2"></i>How It Works</h5>
+                    </div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Fill in the recipient's email address</li>
+                            <li>Enter your name and email address</li>
+                            <li>Add a subject and your message</li>
+                            <li>Optionally attach a file (max 5MB)</li>
+                            <li>Click "Send Email"</li>
+                        </ol>
+                        <p class="mb-0">
+                            <small class="text-muted">
+                                Note: This uses EmailJS to send emails. You'll need to set up an EmailJS account 
+                                and configure the service with your credentials.
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-3 mt-5 text-muted">
+        <p>Email Sender &copy; 2025 | Powered by EmailJS</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

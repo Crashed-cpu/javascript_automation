@@ -1,0 +1,457 @@
+/* General Styles */
+body {
+    background-color: #f5f7fa;
+    color: #2d3748;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #ffffff;
+}
+
+/* Map Container */
+#map {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Address Display Styles */
+#address {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 8px;
+    border-left: 4px solid #4f46e5;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#address.loading {
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#address .address-content {
+    margin-bottom: 1rem;
+}
+
+#address .address-line {
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+}
+
+#address .fw-bold {
+    color: #1e293b;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+#address .text-muted {
+    color: #64748b !important;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+#address .btn-sm {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+#address .btn-outline-primary {
+    border-color: #4f46e5;
+    color: #4f46e5;
+}
+
+#address .btn-outline-primary:hover {
+    background-color: #4f46e5;
+    color: white;
+}
+
+#address .btn-outline-secondary {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+#address .btn-outline-secondary:hover {
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+}
+
+.card-header h5 {
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.card-header h5 i {
+    margin-right: 0.6rem;
+    color: #4f46e5;
+    font-size: 1.1em;
+}
+
+.card-header .btn-outline-secondary {
+    border-radius: 8px;
+    padding: 0.35rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.card-header .btn-outline-secondary:hover {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.loading-pulse {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #address {
+        padding: 1.25rem;
+    }
+    
+    #address .fw-bold {
+        font-size: 1.1rem;
+    }
+    
+    #map {
+        height: 250px;
+    }
+}
+
+/* Debug Info Styling */
+details {
+    margin-top: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+details > summary {
+    padding: 0.75rem 1rem;
+    background-color: #f8fafc;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #475569;
+    outline: none;
+    transition: background-color 0.2s ease;
+}
+
+details > summary:hover {
+    background-color: #f1f5f9;
+}
+
+details > div {
+    padding: 1rem;
+    background-color: #ffffff;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.8rem;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-weight: 600;
+    color: #4e73df;
+    display: flex;
+    align-items: center;
+}
+
+/* Map Container */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 0.35rem;
+    background-color: #f8f9fc;
+    overflow: hidden;
+    box-shadow: 0 0.15rem 0.5rem 0 rgba(58, 59, 69, 0.1);
+}
+
+/* Location Info */
+#locationInfo {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #map {
+        height: 300px;
+    }
+    
+    .card-header h5 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: #2d3748;
+        box-shadow: 0 0.25rem 1.5rem 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        border-bottom-color: #4a5568;
+    }
+    
+    .card-header h5 {
+        color: #e2e8f0;
+    }
+    
+    #locationDetails {
+        background-color: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    #locationDetails .col-md-6 {
+        border-color: #4a5568;
+    }
+    
+    #locationDetails .fw-bold {
+        color: #e2e8f0;
+    }
+    
+    #locationDetails #address {
+        color: #cbd5e0;
+    }
+    
+    .btn-outline-secondary {
+        color: #cbd5e0;
+        border-color: #4a5568;
+    }
+    
+    .btn-outline-secondary:hover {
+        background-color: #4a5568;
+        border-color: #4a5568;
+        color: #fff;
+    }
+    body {
+        background-color: #1a1a1a;
+        color: #e9ecef;
+    }
+    
+    .card {
+        background-color: #2d2d2d;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    .card-header {
+        background-color: #252525;
+        border-bottom: 1px solid #3a3a3a;
+    }
+    
+    #map {
+        filter: brightness(0.8) contrast(1.1);
+    }
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
+/* Location Details Section */
+#locationDetails {
+    background-color: #fff;
+}
+
+#locationDetails .col-md-6 {
+    padding: 1.25rem;
+    border-right: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#locationDetails .col-12 {
+    padding: 1.5rem;
+}
+
+#locationDetails h6 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+}
+
+#locationDetails h6 i {
+    margin-right: 0.5rem;
+    color: #4e73df;
+    font-size: 1rem;
+}
+
+#locationDetails .text-muted {
+    font-size: 0.85rem;
+    color: #6c757d !important;
+}
+
+#locationDetails .fw-bold {
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+#locationDetails #address {
+    line-height: 1.6;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+/* Accuracy indicators */
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-warning {
+    color: #fd7e14 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+/* Status Messages */
+.status-message {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.status-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.status-error {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    text-align: left;
+}
+
+.status-error small {
+    opacity: 0.9;
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+}
+
+/* Manual Location Input */
+.manual-location {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px dashed #dee2e6;
+}
+
+.manual-location p.text-muted {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.manual-location .input-group-text {
+    min-width: 100px;
+    justify-content: center;
+}
+
+.manual-location .form-control {
+    max-width: 200px;
+}
+
+.manual-location #updateLocationBtn {
+    margin-top: 0.5rem;
+    transition: all 0.2s;
+}
+
+.manual-location #updateLocationBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .manual-location {
+        background-color: #2d2d2d;
+        border-color: #444;
+    }
+    
+    .manual-location .form-control {
+        background-color: #3a3a3a;
+        border-color: #444;
+        color: #e9ecef;
+    }
+    
+    .manual-location .input-group-text {
+        background-color: #333;
+        border-color: #444;
+        color: #adb5bd;
+    }
+}
+
+/* Footer */
+footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}

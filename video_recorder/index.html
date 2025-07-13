@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Recorder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Video Recorder</h1>
+            <p class="lead">Record videos directly from your browser</p>
+        </header>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-video me-2"></i>Camera</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="camera-container">
+                            <video id="video" class="w-100" autoplay playsinline></video>
+                            <div id="cameraStatus" class="status-message">
+                                <div class="spinner-border text-light" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span class="ms-2">Initializing camera...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="controls mt-3">
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <button id="startCamera" class="btn btn-primary">
+                                    <i class="fas fa-video me-1"></i> Start Camera
+                                </button>
+                                <button id="startRecording" class="btn btn-danger" disabled>
+                                    <i class="fas fa-circle me-1"></i> Record
+                                </button>
+                                <button id="stopRecording" class="btn btn-warning" disabled>
+                                    <i class="fas fa-stop me-1"></i> Stop
+                                </button>
+                                <button id="switchCamera" class="btn btn-outline-secondary">
+                                    <i class="fas fa-sync-alt me-1"></i> Switch Camera
+                                </button>
+                            </div>
+                            
+                            <div class="mt-3 text-center">
+                                <div id="recordingTimer" class="d-none">
+                                    <i class="fas fa-circle text-danger blink"></i>
+                                    <span class="ms-2 fw-bold">
+                                        <span id="minutes">00</span>:<span id="seconds">00</span>
+                                    </span>
+                                    <span class="ms-2">Recording...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-play-circle me-2"></i>Preview</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div id="previewContainer" class="preview-container">
+                            <p class="text-muted">Your recorded video will appear here</p>
+                        </div>
+                        
+                        <div class="mt-3" id="downloadSection" style="display: none;">
+                            <a id="downloadLink" class="btn btn-success me-2" download>
+                                <i class="fas fa-download me-1"></i> Download Video
+                            </a>
+                            <button id="deleteRecording" class="btn btn-outline-danger">
+                                <i class="fas fa-trash me-1"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-3 mt-5 text-muted">
+        <p>Video Recorder &copy; 2025</p>
+    </footer>
+
+    <!-- Video.js for better video player controls -->
+    <link href="https://vjs.zencdn.net/8.0.4/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js" type="module"></script>
+</body>
+</html>

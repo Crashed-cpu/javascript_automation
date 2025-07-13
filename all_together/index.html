@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Features Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="text-center mb-5">
+            <h1 class="display-4">JavaScript Features Demo</h1>
+            <p class="lead">Explore various JavaScript features and APIs</p>
+        </header>
+
+        <div class="row g-4">
+            <!-- Camera Section -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-camera me-2"></i>Camera & Media</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="camera-container mb-3">
+                            <video id="video" class="w-100" autoplay playsinline></video>
+                            <canvas id="canvas" class="d-none"></canvas>
+                            <div id="cameraStatus" class="status-message">Camera is initializing...</div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button id="startCamera" class="btn btn-primary">
+                                <i class="fas fa-video me-1"></i> Start Camera
+                            </button>
+                            <button id="capturePhoto" class="btn btn-success" disabled>
+                                <i class="fas fa-camera me-1"></i> Take Photo
+                            </button>
+                            <button id="startRecording" class="btn btn-danger" disabled>
+                                <i class="fas fa-video me-1"></i> Record Video
+                            </button>
+                            <button id="stopRecording" class="btn btn-warning d-none">
+                                <i class="fas fa-stop me-1"></i> Stop
+                            </button>
+                        </div>
+                        <div class="mt-3">
+                            <div id="recordingTime" class="text-danger fw-bold d-none">
+                                <i class="fas fa-circle me-1"></i> Recording: <span id="timer">00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Section -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-map-marker-alt me-2"></i>Location Services</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="locationInfo" class="mb-3 p-3 bg-light rounded">
+                            <p class="mb-1"><i class="fas fa-info-circle me-2"></i>Click below to get your location</p>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="getLocation" class="btn btn-primary mb-2">
+                                <i class="fas fa-location-arrow me-1"></i> Get My Location
+                            </button>
+                            <button id="showOnMap" class="btn btn-success mb-2" disabled>
+                                <i class="fas fa-map-marked-alt me-1"></i> Show on Google Maps
+                            </button>
+                            <button id="findStores" class="btn btn-info text-white mb-2" disabled>
+                                <i class="fas fa-store me-1"></i> Find Nearby Grocery Stores
+                            </button>
+                            <button id="getRoute" class="btn btn-warning mb-2" disabled>
+                                <i class="fas fa-route me-1"></i> Get Directions to Destination
+                            </button>
+                        </div>
+                        <div id="map" class="mt-3" style="height: 200px; display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Section -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-paper-plane me-2"></i>Communication</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="emailInput" class="form-label">Email address</label>
+                            <input type="email" class="form-control mb-2" id="emailInput" placeholder="recipient@example.com">
+                            <div class="d-grid gap-2 d-md-flex">
+                                <button id="sendEmail" class="btn btn-primary flex-grow-1">
+                                    <i class="fas fa-envelope me-1"></i> Send Photo via Email
+                                </button>
+                                <button id="sendWhatsApp" class="btn btn-success">
+                                    <i class="fab fa-whatsapp me-1"></i> Send via WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneInput" class="form-label">Phone Number (with country code)</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">+</span>
+                                <input type="tel" class="form-control" id="phoneInput" placeholder="1234567890">
+                                <button id="sendSMS" class="btn btn-info text-white">
+                                    <i class="fas fa-sms me-1"></i> Send SMS
+                                </button>
+                            </div>
+                        </div>
+                        <div id="socialShare" class="mt-3">
+                            <p class="mb-2">Share on social media:</p>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary btn-sm"><i class="fab fa-facebook-f"></i></button>
+                                <button class="btn btn-info btn-sm text-white"><i class="fab fa-twitter"></i></button>
+                                <button class="btn btn-danger btn-sm"><i class="fab fa-instagram"></i></button>
+                                <button class="btn btn-dark btn-sm"><i class="fab fa-github"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Info Section -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle me-2"></i>System Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="ipInfo" class="alert alert-info">
+                            <i class="fas fa-network-wired me-2"></i>
+                            <span id="ipAddress">Click to load IP information</span>
+                        </div>
+                        <div id="deviceInfo" class="mb-3">
+                            <h6>Device Information:</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Browser
+                                    <span id="browserInfo" class="badge bg-primary rounded-pill">-</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Platform
+                                    <span id="platformInfo" class="badge bg-primary rounded-pill">-</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Screen Resolution
+                                    <span id="screenInfo" class="badge bg-primary rounded-pill">-</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-3">
+                            <button id="checkGmail" class="btn btn-primary w-100" disabled>
+                                <i class="fas fa-envelope me-1"></i> Check Last Email (Gmail API Required)
+                            </button>
+                            <div id="gmailInfo" class="mt-2 p-2 bg-light rounded d-none">
+                                <!-- Gmail info will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Modal -->
+        <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="previewModalLabel">Preview</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="previewImage" src="" alt="Preview" class="img-fluid mb-3">
+                        <video id="previewVideo" class="img-fluid d-none" controls></video>
+                        <div id="previewText" class="mt-3"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="downloadMedia">
+                            <i class="fas fa-download me-1"></i> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-3 mt-4 text-muted">
+        <p>JavaScript Features Demo &copy; 2025</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Capture App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Photo Capture</h1>
+            <p class="lead">Take photos using your device camera</p>
+        </header>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-camera me-2"></i>Camera</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="camera-container">
+                            <video id="video" class="w-100" autoplay playsinline></video>
+                            <canvas id="canvas" class="d-none"></canvas>
+                            <div id="cameraStatus" class="status-message">
+                                <div class="spinner-border text-light" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span class="ms-2">Initializing camera...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-center mt-3">
+                            <button id="startCamera" class="btn btn-primary">
+                                <i class="fas fa-video me-1"></i> Start Camera
+                            </button>
+                            <button id="capturePhoto" class="btn btn-success" disabled>
+                                <i class="fas fa-camera me-1"></i> Take Photo
+                            </button>
+                            <button id="downloadPhoto" class="btn btn-info text-white" disabled>
+                                <i class="fas fa-download me-1"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5><i class="far fa-image me-2"></i>Preview</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div id="photoPreview" class="preview-container">
+                            <p class="text-muted">Your captured photo will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-3 mt-5 text-muted">
+        <p>Photo Capture App &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

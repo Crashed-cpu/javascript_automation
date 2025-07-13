@@ -1,0 +1,237 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Map Container */
+#map {
+    height: calc(100vh - 56px);
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #f8f9fa;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    border-right: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+/* Stops List */
+#stopsList .stop-item {
+    cursor: move;
+    margin-bottom: 5px;
+    border-radius: 5px !important;
+    transition: all 0.2s;
+    position: relative;
+    padding-right: 2.5rem;
+}
+
+#stopsList .stop-item:hover {
+    background-color: #f1f1f1;
+    transform: translateX(5px);
+}
+
+.stop-number {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+.stop-actions {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Directions Panel */
+#directionsPanel {
+    background-color: white;
+    border-top: 1px solid #dee2e6;
+    max-height: 40vh;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Elevation Chart */
+.elevation-chart {
+    height: 200px;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #dee2e6;
+    display: none;
+}
+
+/* Route Info Card */
+.route-info-card {
+    border-left: 4px solid #0d6efd;
+    margin-bottom: 1rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Loading Spinner */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Custom Buttons */
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .sidebar {
+        height: auto;
+        max-height: 50vh;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    #map {
+        height: 50vh;
+    }
+}
+
+/* Animation for route drawing */
+@keyframes dash {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+}
+
+.route-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 5s linear forwards;
+}
+
+/* Custom Marker Info Window */
+.gm-style .gm-style-iw {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.gm-style-iw-d {
+    overflow: hidden !important;
+}
+
+/* Saved Routes */
+.saved-route {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.saved-route:hover {
+    background-color: #f8f9fa;
+    transform: translateX(3px);
+}
+
+.saved-route.active {
+    background-color: #e7f1ff;
+    border-left: 3px solid #0d6efd;
+}
+
+/* Form Controls */
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+}
+
+/* Custom Checkbox */
+.form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Drag and Drop Hints */
+.drag-hint {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-align: center;
+    padding: 5px;
+    border: 1px dashed #dee2e6;
+    border-radius: 4px;
+    margin: 5px 0;
+    background-color: #f8f9fa;
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    #map {
+        height: 500px;
+    }
+    
+    #directionsPanel {
+        display: block !important;
+        max-height: none;
+        height: auto;
+    }
+}
